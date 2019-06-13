@@ -17,8 +17,14 @@ app.get("/", function(req, res) {
 
 // to survey
 app.get("/survey", function(req, res) {
-    res.sendFile("/Users/rebeccapae/Documents/Programming/Berkeley Bootcamp/Class_Homework/friend-finder/friend-finder/app/public/survey.html")
-})
+  res.sendFile("/Users/rebeccapae/Documents/Programming/Berkeley Bootcamp/Class_Homework/friend-finder/friend-finder/app/public/survey.html")
+
+});
+
+//default
+app.get("*", function(req, res) {
+    res.sendFile("/Users/rebeccapae/Documents/Programming/Berkeley Bootcamp/Class_Homework/friend-finder/friend-finder/app/public/home.html");
+  });
 
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
