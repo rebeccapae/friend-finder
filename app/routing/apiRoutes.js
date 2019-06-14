@@ -1,17 +1,18 @@
 //Express App
-var dependencies = require("../server");
-var express = dependencies.express;
-var path = dependencies.path;
-var app = express();
-var PORT = process.env.PORT || 8080;
 
-app.use(express.urlencoded({ extended: true}));
-app.use(express.json());
+var friends = require("../data/friends.js");
 
-app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
+module.exports = function(app) {
+  app.get("/api/friends", function(req, res) {
+    res.json(friends);
   });
 
-app.get("/api/friends", function(req, res) {
-    
-});
+  app.post("/api/friends", function(req, res) {
+    friends.push(req.body);
+    console.log(friends);
+    res.json(true);
+  });
+};
+
+
+
