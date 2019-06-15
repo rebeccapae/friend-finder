@@ -138,6 +138,26 @@
         <button type="submit" class="btn btn-primary submit">Submit</button>
     </form>
 
+    <div class="modal" id = "myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Best Match</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Your best match is: </p>
+                <p id="best-match"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
 
@@ -173,7 +193,6 @@ var newFriend;
                 alert("You have been added")
             }
         })
-
         calculateMatch();
     })
 
@@ -188,33 +207,34 @@ var newFriend;
             var bestMatch = 0;
             var bestMatchName = "";
 
-            for (var i = 0; i < friends.length; i++) {
+            for (var i = 0; i < friends.length -1; i++) {
                 var friend = newFriend
                 var name = friends[i].name; 
-                
                 var match = friends[i].scores
                 var totalDiff = 0;
-                bestMatch = 0;
-                bestMatchName = "";
 
-                for (var i = 0; i <10; i++) {
-                    var difference = Math.abs(friend.scores[i] - match[i]);
+                for (var j = 0; j <10; j++) {
+                    var difference = Math.abs(friend.scores[j] - match[j]);
                     totalDiff = totalDiff + difference;
+                    console.log("Total Diff is: " + totalDiff);
                 }
 
-                if(bestMatch == 0) {
+                if(i == 0) {
                     bestMatch = totalDiff;
                     bestMatchName = name;
+                    console.log("if statement after 1st friend")
+                    console.log("if bestMatch = " + bestMatch);
                 }
                 else if (totalDiff < bestMatch) {
                     bestMatch = totalDiff;
-                    console.log("else if ran")
+                    console.log("else if ran - best match is = " + bestMatch)
                     bestMatchName = name;
                 };
                 
             }
-            alert("You're best match is: " + bestMatch + bestMatchName)
-        })
-    }
+            $("#best-match").text(bestMatchName);
+            $('#myModal').modal("show");
+        });
+    };
 
 </script>
